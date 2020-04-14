@@ -16,25 +16,16 @@ import com.google.gson.stream.JsonReader;
 import com.sun.corba.se.impl.orbutil.RepositoryIdUtility;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
-import model.data_structures.ArbolBalanceado;
 import model.data_structures.Comparendo;
-import model.data_structures.LinearProbing;
-import model.data_structures.MaxColaCP;
-import model.data_structures.SeparateChaining;
+import model.data_structures.RedBlackBST;
+
 
 
 public class Modelo {
 
 	public static String PATH = "./data/comparendos_dei_2018_small.geojson"; 
 
-
-	public SeparateChaining<Integer,Comparendo> separate;
-
-	public LinearProbing<Integer,Comparendo> linear;
-
-	public MaxColaCP<Comparendo> colaMax;
-
-	public ArbolBalanceado<Integer,Comparendo> arbolB;
+	public RedBlackBST<Integer,Comparendo> arbolRN;
 
 	public int tamano;
 
@@ -43,17 +34,14 @@ public class Modelo {
 	public Modelo()
 	{
 		tamano = 0;
-		separate = new SeparateChaining<Integer,Comparendo>();
-		linear = new  LinearProbing<Integer,Comparendo>();
-		colaMax = new MaxColaCP<Comparendo>();
-		arbolB = new ArbolBalanceado<Integer,Comparendo>();
+		arbolRN = new RedBlackBST<Integer,Comparendo>();
 	}
 
 
 	public String cargarDatos() 
 	{
 		Comparendo mayor = new Comparendo();
-		if(linear.isEmpty() && separate.isEmpty() && colaMax.esVacia() && arbolB.isEmpty() ){
+		if(arbolRN.isEmpty()){
 			JsonReader reader;
 			try {
 				reader = new JsonReader(new FileReader(PATH));
@@ -89,15 +77,12 @@ public class Modelo {
 					if(c.compareTo(mayor) > 0) mayor = c;
 
 					for (int i = 0; i < e2.size(); i++) {
-						linear.put(i,c);
-						separate.put(i,c);
-						arbolB.put(i, c);
+						
+						arbolRN.put(c.OBJECTID, c);
 						tamano ++;
-
 					}
-
-					colaMax.agregar(c);
-
+					
+					
 
 				}
 			} catch (FileNotFoundException e) {
@@ -110,15 +95,34 @@ public class Modelo {
 		return null;
 	}
 
-
-	public void buscarTiemposViaje(Date fecha, String claseV, String infra)
-	{
-
-	}
-
-
 	public int darTamano() {
-		return separate.size();
+		return arbolRN.size();
+	}
+	
+	public int minOBJECTID()
+	{
+		return arbolRN.min();
+	}
+	
+	public int maxOBJECTID()
+	{
+		return arbolRN.max();
+	}
+	
+	public Comparendo consultarComparendoID(int objid)
+	{
+		if(arbolRN.contains(objid))
+		{
+			return arbolRN.get(objid);
+		}
+		
+		return null;
+	}
+	
+	public Comparendo consultarComparendoEnRangoID(int objid1, int objid2 )
+	{
+		// falta piruca
+		return 
 	}
 
 }

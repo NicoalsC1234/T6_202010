@@ -44,8 +44,12 @@ public class Controller <T extends Comparable<T>>{
 					view.printMessage(modelo.cargarDatos());
 					view.printMessage("Se han cargado los datos");
 					view.printMessage("El numero de datos leidos es : " + modelo.darTamano());
+					view.printMessage("El min OBJECTID es: "+ modelo.minOBJECTID());
+					view.printMessage("El max OBJECTID es: "+ modelo.maxOBJECTID());
 
 				case 2:
+					
+					
 
 
 		

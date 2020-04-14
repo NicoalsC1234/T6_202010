@@ -41,8 +41,7 @@ public class Comparendo implements Comparable<Comparendo> {
 		hash = 31* hash + INFRACCION.hashCode();
 		return hash;
 	}
-
-	@Override
+	
 	public String toString()
 	{
 		return "Los datos del comparendo son " + OBJECTID +", " + FECHA_HORA + ", " + INFRACCION + ", " + CLASE_VEHI  + ", " +  TIPO_SERVI  + ", " + LOCALIDAD;			
