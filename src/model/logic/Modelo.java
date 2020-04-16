@@ -81,11 +81,10 @@ public class Modelo {
 						arbolRN.put(c.OBJECTID, c);
 						tamano ++;
 					}
-					
-					
-
 				}
-			} catch (FileNotFoundException e) {
+			} 
+			
+			catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 			return mayor.toString();
@@ -109,20 +108,27 @@ public class Modelo {
 		return arbolRN.max();
 	}
 	
-	public Comparendo consultarComparendoID(int objid)
+	public String consultarComparendoID(int objid)
 	{
 		if(arbolRN.contains(objid))
 		{
-			return arbolRN.get(objid);
+			return arbolRN.get(objid).toString();
 		}
 		
-		return null;
+		return "Ese dato no se encuentra en el arbol";
 	}
 	
-	public Comparendo consultarComparendoEnRangoID(int objid1, int objid2 )
+	public String consultarComparendoEnRangoID(int objid1, int objid2 )
 	{
-		// falta piruca
-		return 
+		
+			String mandar = "\n ";
+			int x = objid1;
+			while (x<= objid2)
+			{
+				if(arbolRN.contains(x))
+				mandar = mandar + arbolRN.get(x).toString() + " \n ";
+				x ++;
+			}
+			return mandar;
 	}
-
 }
